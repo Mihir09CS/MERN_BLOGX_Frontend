@@ -28,6 +28,10 @@ import SetPassword from "../pages/auth/SetPassword";
 import Home from "../pages/blog/Home";
 import PopularBlogs from "../pages/blog/PopularBlogs";
 import BlogDetail from "../pages/blog/BlogDetail";
+import About from "../pages/static/About";
+import Contact from "../pages/static/Contact";
+import PrivacyPolicy from "../pages/static/PrivacyPolicy";
+import TermsOfService from "../pages/static/TermsOfService";
 
 // // Protected blog actions (POST/PUT/DELETE + like/dislike/bookmark/report + /me/blogs + /me/bookmarks) [file:9]
 import CreateBlog from "../pages/blog/CreateBlog";
@@ -175,6 +179,10 @@ export default function Layout() {
           <Route index element={<Home />} />
           <Route path="popular" element={<PopularBlogs />} />
           <Route path="blog/:id" element={<BlogDetail />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="terms-of-service" element={<TermsOfService />} />
 
           {/* Comments public read (optional debug route) [file:7] */}
           {/* <Route path="blog/:blogId/comments" element={<BlogComments />} /> */}

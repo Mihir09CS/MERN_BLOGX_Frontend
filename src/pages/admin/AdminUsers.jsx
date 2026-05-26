@@ -11,7 +11,6 @@ export default function AdminUsers() {
   // URL-driven state
   const page = Number(searchParams.get("page")) || 1;
   const search = searchParams.get("search") || "";
-  const role = searchParams.get("role") || "";
   const banned = searchParams.get("banned") || "";
 
   // Local state
@@ -28,7 +27,6 @@ export default function AdminUsers() {
         page,
         limit: 10,
         ...(search && { search }),
-        ...(role && { role }),
         ...(banned && { banned }),
       }).toString();
 
@@ -47,7 +45,7 @@ export default function AdminUsers() {
 
   useEffect(() => {
     fetchUsers();
-  }, [page, search, role, banned]);
+  }, [page, search, banned]);
 
   const updateParam = (key, value) => {
     const params = Object.fromEntries(searchParams.entries());
@@ -92,16 +90,6 @@ export default function AdminUsers() {
           placeholder="Search name or email"
           className="border px-3 py-2 rounded text-sm"
         />
-
-        <select
-          value={role}
-          onChange={(e) => updateParam("role", e.target.value)}
-          className="border px-3 py-2 rounded text-sm"
-        >
-          <option value="">All Roles</option>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
 
         <select
           value={banned}

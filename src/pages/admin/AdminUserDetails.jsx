@@ -79,6 +79,10 @@ export default function AdminUserDetails() {
           value={user.isBanned ? "Banned" : "Active"}
           valueClass={user.isBanned ? "text-red-600" : "text-green-600"}
         />
+        <Detail label="Followers" value={user.followersCount ?? 0} />
+        <Detail label="Following" value={user.followingCount ?? 0} />
+        <Detail label="Bookmarks" value={user.bookmarks?.length ?? 0} />
+        <Detail label="Auth Provider" value={user.authProvider || "local"} />
         <Detail
           label="Joined"
           value={new Date(user.createdAt).toLocaleString()}

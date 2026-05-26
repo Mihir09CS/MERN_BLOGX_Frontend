@@ -1,9 +1,15 @@
 // src/api/axios.js
 import axios from "axios";
 
-// Base URL from environment variable (defaults to your deployed backend)
+const LOCAL_API_BASE_URL = "http://localhost:5000";
+const PRODUCTION_API_BASE_URL = "https://mern-blogx.vercel.app";
+const envApiBaseUrl = import.meta.env.VITE_API_BASE_URL?.trim();
+
+// Keep local Vite development on the local API by default so browser requests
+// do not get blocked by production-only CORS rules.
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://mern-blogx.vercel.app";
+  envApiBaseUrl ||
+  (import.meta.env.DEV ? LOCAL_API_BASE_URL : PRODUCTION_API_BASE_URL);
 
 // ==================== USER API INSTANCE ====================
 // Used for: /api/auth, /api/blogs, /api/comments, /api/profile, /api/users, /api/upload
@@ -59,7 +65,7 @@ userAPI.interceptors.response.use(
 
       console.error("API Error:", data.message || error.message);
     } else if (error.request) {
-      console.error("Network Error: No response from server");
+      console.error(`Network Error: No response from ${API_BASE_URL}`);
     }
 
     return Promise.reject(error);

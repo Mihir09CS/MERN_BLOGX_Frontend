@@ -3,8 +3,11 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const LOCAL_API_BASE_URL = "http://localhost:5000";
+const PRODUCTION_API_BASE_URL = "https://mern-blogx.vercel.app";
 const API_BASE =
-  import.meta.env.VITE_API_BASE_URL || "https://mern-blogx.vercel.app";
+  import.meta.env.VITE_API_BASE_URL?.trim() ||
+  (import.meta.env.DEV ? LOCAL_API_BASE_URL : PRODUCTION_API_BASE_URL);
 
 export default function AdminSidebar() {
   const [admin, setAdmin] = useState(null);

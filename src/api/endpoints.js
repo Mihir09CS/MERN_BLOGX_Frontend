@@ -35,16 +35,14 @@ export const BLOG_ENDPOINTS = {
   MY_BOOKMARKS: "/blogs/me/bookmarks",
 };
 
-
 export const COMMENT_ENDPOINTS = {
-  GET_ALL: (blogId) => `/comments/${blogId}`,           // GET all comments for blog
-  CREATE: (blogId) => `/comments/${blogId}`,            // POST new comment
-  UPDATE: (commentId) => `/comments/${commentId}`,      // PUT update comment
-  DELETE: (commentId) => `/comments/${commentId}`,      // DELETE comment
-  LIKE: (commentId) => `/comments/${commentId}/like`,   // PUT like/unlike comment
+  GET_ALL: (blogId) => `/comments/${blogId}`, // GET all comments for blog
+  CREATE: (blogId) => `/comments/${blogId}`, // POST new comment
+  UPDATE: (commentId) => `/comments/${commentId}`, // PUT update comment
+  DELETE: (commentId) => `/comments/${commentId}`, // DELETE comment
+  LIKE: (commentId) => `/comments/${commentId}/like`, // PUT like/unlike comment
   REPLY: (commentId) => `/comments/${commentId}/reply`, // POST reply to comment
 };
-
 
 export const PROFILE_ENDPOINTS = {
   // [file:8]
@@ -57,7 +55,6 @@ export const PROFILE_ENDPOINTS = {
   PROFILE_FOLLOWING: (userId) => `/profile/${userId}/following`,
   TOGGLE_FOLLOW: (userId) => `/profile/${userId}/follow`,
 };
-
 
 export const USER_ENDPOINTS = {
   // [file:10]
@@ -101,4 +98,8 @@ export const ADMIN_ENDPOINTS = {
 
   // Logs
   LOGS: "/logs",
+};
+
+export const CONTACT_ENDPOINTS = {
+  SUBMIT_FEEDBACK: "/contact",
 };

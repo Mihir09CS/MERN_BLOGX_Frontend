@@ -16,8 +16,8 @@ export default function Footer() {
               <span className="text-xl font-bold text-white">DevScribe</span>
             </div>
             <p className="text-sm text-slate-400">
-              A modern blogging platform built with MERN stack. Share your
-              stories with the world.
+              A modern space for developers to publish ideas, share project
+              learnings, and discover thoughtful technical writing.
             </p>
           </div>
 
@@ -48,19 +48,19 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-3">Community</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-white transition">
+                <Link to="/about" className="hover:text-white transition">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition">
-                  Guidelines
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition">
+                <Link to="/contact" className="hover:text-white transition">
                   Contact
-                </a>
+                </Link>
+              </li>
+              <li>
+                <Link to="/editor/new" className="hover:text-white transition">
+                  Start Writing
+                </Link>
               </li>
             </ul>
           </div>
@@ -70,19 +70,20 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-3">Legal</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-white transition">
+                <Link
+                  to="/privacy-policy"
+                  className="hover:text-white transition"
+                >
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition">
+                <Link
+                  to="/terms-of-service"
+                  className="hover:text-white transition"
+                >
                   Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition">
-                  Cookie Policy
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
