@@ -13,13 +13,13 @@ const API_BASE_URL =
 
 // ==================== USER API INSTANCE ====================
 // Used for: /api/auth, /api/blogs, /api/comments, /api/profile, /api/users, /api/upload
-// Protected routes use JWT from localStorage("token") [file:9][file:8][file:10]
+// Protected routes use JWT from localStorage("token")
 export const userAPI = axios.create({
   baseURL: `${API_BASE_URL}/api`,
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // If backend uses cookies (your CORS enables credentials) [file:22]
+  withCredentials: true, // If backend uses cookies, CORS already allows credentials.
 });
 
 // Request interceptor - automatically add user JWT token
@@ -51,7 +51,7 @@ userAPI.interceptors.response.use(
         }
       }
 
-      // Banned user [file:15]
+      // Banned user
       if (status === 403 && data.message?.includes("banned")) {
         localStorage.removeItem("token");
         alert("Your account has been banned. Please contact support.");
@@ -75,7 +75,7 @@ userAPI.interceptors.response.use(
 
 
 // ==================== ADMIN API INSTANCE ====================
-// Used for: /api/admin/* (all admin routes protected by protectAdmin) [file:11]
+// Used for: /api/admin/* (all admin routes protected by protectAdmin)
 // Uses separate adminToken from localStorage
 export const adminAPI = axios.create({
   baseURL: `${API_BASE_URL}/api/admin`,
@@ -114,7 +114,7 @@ adminAPI.interceptors.response.use(
         }
       }
 
-      // Permission denied (admin lacks required permission) [file:11]
+      // Permission denied (admin lacks required permission)
       if (status === 403) {
         alert("Permission denied. Contact super admin.");
       }
@@ -127,7 +127,7 @@ adminAPI.interceptors.response.use(
 );
 
 // ==================== AUTH API (NO TOKEN) ====================
-// Used for login/register endpoints that don't need auth [file:6]
+// Used for login/register endpoints that don't need auth
 export const authAPI = axios.create({
   baseURL: `${API_BASE_URL}/api/auth`,
   headers: {

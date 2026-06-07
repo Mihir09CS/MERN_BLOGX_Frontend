@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { userAPI } from "../../api/axios";
 import { CONTACT_ENDPOINTS } from "../../api/endpoints";
+import StaticPage from "./StaticPage";
+
+const inputClassName =
+  "w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 transition-all duration-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 disabled:opacity-50";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,12 +15,10 @@ const Contact = () => {
     subject: "",
     message: "",
   });
-
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
-  // Client-side validation
   const validateForm = () => {
     const newErrors = {};
 
@@ -58,23 +60,24 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((current) => ({
+      ...current,
       [name]: value,
     }));
-    // Clear error for this field when user starts typing
+
     if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
+      setErrors((current) => ({
+        ...current,
         [name]: "",
       }));
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     if (!validateForm()) {
       toast.error("Please fix the errors in the form");
@@ -109,6 +112,7 @@ const Contact = () => {
       const errorMessage =
         error.response?.data?.message ||
         "Failed to submit feedback. Please try again.";
+
       toast.error(errorMessage);
       console.error("Feedback submission error:", error);
     } finally {
@@ -117,178 +121,167 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <p className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-2">
-            Contact
-          </p>
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">
-            Reach out with feedback, bugs, or ideas
-          </h1>
-          <p className="text-lg text-slate-600">
-            DevScribe is evolving, and your input helps shape the experience.
-            Share suggestions, report issues, or tell us what you think.
-          </p>
-        </div>
+    <StaticPage
+      eyebrow="Contact"
+      title="Reach out with feedback, bugs, or product ideas"
+      description="DevScribe is still evolving, and thoughtful feedback helps improve the writing experience, product quality, and community health."
+    >
+      <p>
+        If something feels off, a workflow is confusing, or you have an idea
+        that would make the platform more useful for developers, we want to
+        hear it.
+      </p>
 
-        {/* Info Section */}
-        <div className="bg-white rounded-lg shadow-sm p-8 mb-8 border border-slate-200">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="font-semibold text-slate-900 mb-2">Support</h3>
-              <p className="text-slate-600 text-sm">
-                For account questions, platform issues, or general support,
-                contact{" "}
-                <a
-                  href="mailto:support@devscribe.app"
-                  className="text-blue-600 hover:underline"
-                >
-                  support@devscribe.app
-                </a>
-                .
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 mb-2">
-                Response Expectations
-              </h3>
-              <p className="text-slate-600 text-sm">
-                While we may not provide immediate live support, all messages
-                are reviewed to help improve product quality, stability, and
-                community health.
-              </p>
-            </div>
+      <div className="not-prose mt-8 space-y-6">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <h2 className="text-base font-semibold text-slate-900">Support</h2>
+            <p className="mt-2 text-sm text-slate-600">
+              For account questions or platform issues, email{" "}
+              <a
+                href="mailto:support@devscribe.app"
+                className="font-medium text-blue-600 hover:underline"
+              >
+                support@devscribe.app
+              </a>
+              .
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <h2 className="text-base font-semibold text-slate-900">
+              Response expectations
+            </h2>
+            <p className="mt-2 text-sm text-slate-600">
+              We may not offer instant live support, but every message is
+              reviewed and used to guide product improvements.
+            </p>
           </div>
         </div>
 
-        {/* Feedback Form */}
-        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-8">
-          <h2 className="text-2xl font-bold text-slate-900 mb-6">
-            Send us your feedback
-          </h2>
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold text-slate-900">
+              Send feedback
+            </h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Share a bug, suggestion, or general note. The form still posts to
+              the existing contact endpoint, so current integration stays
+              intact.
+            </p>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name Field */}
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-slate-700 mb-2"
-              >
-                Name *
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                disabled={loading}
-                placeholder="Your name"
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition ${
-                  errors.name
-                    ? "border-red-500 bg-red-50"
-                    : "border-slate-300 bg-slate-50"
-                } disabled:opacity-50`}
-              />
-              {errors.name && (
-                <p className="text-red-600 text-sm mt-1">{errors.name}</p>
-              )}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Name *
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  disabled={loading}
+                  placeholder="Your name"
+                  className={`${inputClassName} ${
+                    errors.name ? "border-red-500 bg-red-50" : ""
+                  }`}
+                />
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                )}
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  disabled={loading}
+                  placeholder="you@example.com"
+                  className={`${inputClassName} ${
+                    errors.email ? "border-red-500 bg-red-50" : ""
+                  }`}
+                />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                )}
+              </div>
             </div>
 
-            {/* Email Field */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-slate-700 mb-2"
-              >
-                Email *
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                disabled={loading}
-                placeholder="your@email.com"
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition ${
-                  errors.email
-                    ? "border-red-500 bg-red-50"
-                    : "border-slate-300 bg-slate-50"
-                } disabled:opacity-50`}
-              />
-              {errors.email && (
-                <p className="text-red-600 text-sm mt-1">{errors.email}</p>
-              )}
+            <div className="grid gap-5 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+              <div>
+                <label
+                  htmlFor="type"
+                  className="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Feedback Type *
+                </label>
+                <select
+                  id="type"
+                  name="type"
+                  value={formData.type}
+                  onChange={handleChange}
+                  disabled={loading}
+                  className={`${inputClassName} ${
+                    errors.type ? "border-red-500 bg-red-50" : ""
+                  }`}
+                >
+                  <option value="feedback">General Feedback</option>
+                  <option value="suggestion">Suggestion</option>
+                  <option value="issue">Issue Report</option>
+                  <option value="bug">Bug Report</option>
+                </select>
+                {errors.type && (
+                  <p className="mt-1 text-sm text-red-600">{errors.type}</p>
+                )}
+              </div>
+
+              <div>
+                <label
+                  htmlFor="subject"
+                  className="mb-2 block text-sm font-medium text-slate-700"
+                >
+                  Subject *
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  disabled={loading}
+                  placeholder="Brief subject of your message"
+                  className={`${inputClassName} ${
+                    errors.subject ? "border-red-500 bg-red-50" : ""
+                  }`}
+                />
+                {errors.subject && (
+                  <p className="mt-1 text-sm text-red-600">{errors.subject}</p>
+                )}
+              </div>
             </div>
 
-            {/* Feedback Type */}
-            <div>
-              <label
-                htmlFor="type"
-                className="block text-sm font-medium text-slate-700 mb-2"
-              >
-                Feedback Type *
-              </label>
-              <select
-                id="type"
-                name="type"
-                value={formData.type}
-                onChange={handleChange}
-                disabled={loading}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition ${
-                  errors.type
-                    ? "border-red-500 bg-red-50"
-                    : "border-slate-300 bg-slate-50"
-                } disabled:opacity-50`}
-              >
-                <option value="feedback">General Feedback</option>
-                <option value="suggestion">Suggestion</option>
-                <option value="issue">Issue Report</option>
-                <option value="bug">Bug Report</option>
-              </select>
-              {errors.type && (
-                <p className="text-red-600 text-sm mt-1">{errors.type}</p>
-              )}
-            </div>
-
-            {/* Subject Field */}
-            <div>
-              <label
-                htmlFor="subject"
-                className="block text-sm font-medium text-slate-700 mb-2"
-              >
-                Subject *
-              </label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                disabled={loading}
-                placeholder="Brief subject of your message"
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition ${
-                  errors.subject
-                    ? "border-red-500 bg-red-50"
-                    : "border-slate-300 bg-slate-50"
-                } disabled:opacity-50`}
-              />
-              {errors.subject && (
-                <p className="text-red-600 text-sm mt-1">{errors.subject}</p>
-              )}
-            </div>
-
-            {/* Message Field */}
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-slate-700 mb-2"
+                className="mb-2 block text-sm font-medium text-slate-700"
               >
                 Message *{" "}
-                <span className="text-slate-500 text-xs">
+                <span className="text-xs font-normal text-slate-500">
                   (10-5000 characters)
                 </span>
               </label>
@@ -300,38 +293,35 @@ const Contact = () => {
                 disabled={loading}
                 placeholder="Share your feedback, describe the issue, or suggest an improvement..."
                 rows="6"
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-none ${
-                  errors.message
-                    ? "border-red-500 bg-red-50"
-                    : "border-slate-300 bg-slate-50"
-                } disabled:opacity-50`}
+                className={`${inputClassName} resize-none ${
+                  errors.message ? "border-red-500 bg-red-50" : ""
+                }`}
               />
-              <div className="flex justify-between items-center mt-2">
+              <div className="mt-2 flex items-center justify-between gap-3">
                 <div>
                   {errors.message && (
-                    <p className="text-red-600 text-sm">{errors.message}</p>
+                    <p className="text-sm text-red-600">{errors.message}</p>
                   )}
                 </div>
-                <p className="text-slate-500 text-xs">
+                <p className="text-xs text-slate-500">
                   {formData.message.length}/5000
                 </p>
               </div>
             </div>
 
-            {/* Submit Button */}
-            <div className="pt-4">
+            <div className="pt-2">
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full px-6 py-3 rounded-lg font-medium transition flex items-center justify-center gap-2 ${
+                className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-medium transition-all duration-200 ${
                   loading
-                    ? "bg-slate-300 text-slate-600 cursor-not-allowed"
+                    ? "cursor-not-allowed bg-slate-300 text-slate-600"
                     : "bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800"
                 }`}
               >
                 {loading ? (
                   <>
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24">
                       <circle
                         className="opacity-25"
                         cx="12"
@@ -344,7 +334,7 @@ const Contact = () => {
                       <path
                         className="opacity-75"
                         fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        d="M4 12a8 8 0 0 1 8-8V0C5.373 0 0 5.373 0 12h4Zm2 5.291A7.962 7.962 0 0 1 4 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647Z"
                       />
                     </svg>
                     Sending...
@@ -355,26 +345,17 @@ const Contact = () => {
               </button>
             </div>
 
-            {/* Success Message */}
             {submitted && (
-              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                <p className="text-green-800 text-sm font-medium">
-                  ✓ Thank you for your feedback! We've received your message.
+              <div className="rounded-2xl border border-green-200 bg-green-50 p-4">
+                <p className="text-sm font-medium text-green-800">
+                  ✓ Thank you for the feedback. Your message has been received.
                 </p>
               </div>
             )}
           </form>
         </div>
-
-        {/* Footer Note */}
-        <div className="text-center mt-8 text-slate-600 text-sm">
-          <p>
-            We review all submissions and use your feedback to improve
-            DevScribe.
-          </p>
-        </div>
       </div>
-    </div>
+    </StaticPage>
   );
 };
 

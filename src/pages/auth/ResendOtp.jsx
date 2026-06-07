@@ -19,7 +19,7 @@ export default function ResendOtp() {
     setError("");
 
     try {
-      // POST /api/auth/resend-otp [file:17]
+      // POST /api/auth/resend-otp
       // Request: { email }
       // Response: { message: "New OTP sent to email" }
       const { data } = await authAPI.post(AUTH_ENDPOINTS.RESEND_OTP, { email });

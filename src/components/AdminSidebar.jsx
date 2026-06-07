@@ -26,7 +26,7 @@ export default function AdminSidebar() {
         const { data } = await axios.get(`${API_BASE}/api/admin/me`, {
           headers: { Authorization: `Bearer ${adminToken}` },
         });
-        setAdmin(data.data); // Admin model: name, email, permissions [file:24]
+        setAdmin(data.data); // Admin model: name, email, permissions
       } catch (error) {
         console.error("Failed to fetch admin", error);
       }

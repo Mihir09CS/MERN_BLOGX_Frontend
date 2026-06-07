@@ -39,7 +39,7 @@ export default function VerifyEmail() {
     }
 
     try {
-      // POST /api/auth/verify-email [file:17]
+      // POST /api/auth/verify-email
       // Request: { email, otp }
       // Response: { message: "Email verified successfully" }
       const { data } = await authAPI.post(AUTH_ENDPOINTS.VERIFY_EMAIL, {
@@ -61,7 +61,7 @@ export default function VerifyEmail() {
     setError("");
 
     try {
-      // POST /api/auth/resend-otp [file:17]
+      // POST /api/auth/resend-otp
       // Request: { email }
       // Response: { message: "New OTP sent..." }
       const { data } = await authAPI.post(AUTH_ENDPOINTS.RESEND_OTP, { email });

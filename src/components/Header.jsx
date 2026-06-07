@@ -19,7 +19,7 @@ export default function Header() {
 
   const token = localStorage.getItem("token");
 
-  // Fetch user data (GET /api/users/me) [file:1]
+  // Fetch user data (GET /api/users/me)
   useEffect(() => {
     if (!token) return;
 
@@ -28,7 +28,7 @@ export default function Header() {
         const { data } = await axios.get(`${API_BASE}/api/users/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setUser(data.data); // User model: name, email, _id [file:15]
+        setUser(data.data); // User model: name, email, _id
       } catch (error) {
         console.error("Failed to fetch user", error);
         if (error.response?.status === 401) {
@@ -43,7 +43,7 @@ export default function Header() {
         const { data } = await axios.get(`${API_BASE}/api/profile/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setProfile(data.data); // Profile model: avatar, bio [file:13]
+        setProfile(data.data); // Profile model: avatar, bio
       } catch (error) {
         console.error("Failed to fetch profile", error);
       }

@@ -1,28 +1,29 @@
 // src/api/endpoints.js
-// Centralized API endpoints matching your backend routes [file:22]
+// Centralized API endpoints matching your backend routes.
 
 export const AUTH_ENDPOINTS = {
-  // User auth [file:6]
+  // User auth
   REGISTER: "/register",
   LOGIN: "/login",
   GOOGLE: "/google",
+  GITHUB: "/github",
   VERIFY_EMAIL: "/verify-email",
   RESEND_OTP: "/resend-otp",
   FORGOT_PASSWORD: "/forgot-password",
   RESET_PASSWORD: (token) => `/reset-password/${token}`,
   SET_PASSWORD: "/set-password",
 
-  // Admin auth [file:6]
+  // Admin auth
   ADMIN_LOGIN: "/admin-login",
 };
 
 export const BLOG_ENDPOINTS = {
-  // Public [file:9]
+  // Public
   GET_ALL: "/blogs",
   GET_POPULAR: "/blogs/popular",
   GET_BY_ID: (id) => `/blogs/${id}`,
 
-  // Protected [file:9]
+  // Protected
   CREATE: "/blogs",
   UPDATE: (id) => `/blogs/${id}`,
   DELETE: (id) => `/blogs/${id}`,
@@ -45,7 +46,7 @@ export const COMMENT_ENDPOINTS = {
 };
 
 export const PROFILE_ENDPOINTS = {
-  // [file:8]
+  // Profile routes
   MY_PROFILE: "/profile/me",
   UPDATE_MY_PROFILE: "/profile/me",
   MY_FOLLOWERS: "/profile/me/followers",
@@ -57,7 +58,7 @@ export const PROFILE_ENDPOINTS = {
 };
 
 export const USER_ENDPOINTS = {
-  // [file:10]
+  // User routes
   ME: "/users/me",
   UPDATE_ME: "/users/me",
   DELETE_ME: "/users/me",
@@ -67,12 +68,12 @@ export const USER_ENDPOINTS = {
 };
 
 export const UPLOAD_ENDPOINTS = {
-  // [file:21]
+  // Upload routes
   UPLOAD_FILE: "/upload",
 };
 
 export const ADMIN_ENDPOINTS = {
-  // [file:11]
+  // Admin routes
   STATS: "/stats",
 
   // Users

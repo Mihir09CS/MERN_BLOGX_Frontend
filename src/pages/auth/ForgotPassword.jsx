@@ -16,7 +16,7 @@ export default function ForgotPassword() {
     setError("");
 
     try {
-      // POST /api/auth/forgot-password [file:17]
+      // POST /api/auth/forgot-password
       // Request: { email }
       // Response: { message: "Email sent with password reset instructions" }
       const { data } = await authAPI.post(AUTH_ENDPOINTS.FORGOT_PASSWORD, {
